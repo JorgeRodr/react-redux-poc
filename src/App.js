@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Login from "./containers/login/login";
+import { LoginComponent } from "./containers/login/login";
 import { store } from "./store";
 import { Provider } from "react-redux";
 
@@ -18,7 +18,7 @@ function App() {
             </ul>
           </nav>
 
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={LoginComponent} />
         </div>
       </Router>
     </Provider>
