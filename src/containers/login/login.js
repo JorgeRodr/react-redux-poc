@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { Form, Field } from "react-final-form";
+import { connect } from "react-redux";
+import { loginAction } from "../../store/actions";
+import { selectError } from "../../store/reducer";
+import { bindActionCreators } from "redux";
 
-export class LoginComponent extends Component {
-  constructor() {
-    super();
+class LoginComponent extends Component {
+  constructor(props) {
+    super(props);
     this.onSubmit = this.onSubmit.bind(this);
   }
   render() {
@@ -39,9 +43,25 @@ export class LoginComponent extends Component {
 
   onSubmit(e) {
     this.log(e);
+    this.props.loginAction(e);
   }
 
   log(lg) {
     console.log(lg);
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    error: selectError(state)
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ loginAction }, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginComponent);

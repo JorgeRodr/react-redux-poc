@@ -1,24 +1,27 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { LoginComponent } from "./containers/login/login";
+import Login from "./containers/login/login";
+import { store } from "./store";
+import { Provider } from "react-redux";
 
 function App() {
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
-        </nav>
+    <Provider store={store}>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            </ul>
+          </nav>
 
-        <Route path="/login" component={LoginComponent} />
-      </div>
-    </Router>
+          <Route path="/login" component={Login} />
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
