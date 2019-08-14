@@ -1,11 +1,14 @@
 import React from "react";
-import { Form, Field } from "react-final-form";
-import { useSelector, useDispatch } from "react-redux";
-import { loginAction } from "../../store/actions";
+import { Form, Field, FormSpy } from "react-final-form";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction } from "../../../store/actions";
+import { selectLoggedStatus } from "../../../store/reducer";
+import { checkUser } from "../store/actions";
 
 export const LoginComponent = () => {
   const dispatch = useDispatch();
-  const logged = useSelector(state => state.logged);
+  const logged = useSelector(selectLoggedStatus);
+  let email;
 
   function myForm() {
     return (
@@ -14,11 +17,16 @@ export const LoginComponent = () => {
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <div>
-              <Field
-                name="email"
-                component="input"
-                placeholder="Enter your email"
-              />
+              <FormSpy>
+                {props => (
+                  <Field
+                    name="email"
+                    component="input"
+                    placeholder="Enter your email"
+                    onBlur={() => dispatch(checkUser(props.values.email))}
+                  />
+                )}
+              </FormSpy>
             </div>
             <div>
               <Field

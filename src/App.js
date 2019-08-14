@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { LoginComponent } from "./containers/login/login";
+import { LoginComponent } from "./features/login/containers/login";
 import { store } from "./store";
 import { Provider } from "react-redux";
 

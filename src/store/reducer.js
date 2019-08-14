@@ -1,14 +1,8 @@
-import {
-  LOGIN,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  CHECK_USER,
-  CHECK_USER_SUCCESS,
-  CHECK_USER_FAILURE
-} from "./actions";
+import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE } from "./actions";
+import { createSelector } from "reselect";
 
 const initialState = {
-  loading: false,
+  checkLoading: false,
   logged: false,
   error: null
 };
@@ -16,30 +10,23 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOGIN: {
-      return { ...state, loading: true, error: null, logged: true };
+      return { ...state, checkLoading: true, error: null, logged: true };
     }
 
     case LOGIN_SUCCESS: {
-      return { ...state, loading: false };
+      return { ...state, checkLoading: false };
     }
 
     case LOGIN_FAILURE: {
-      return { ...state, loading: false, error: action.payload };
-    }
-
-    case CHECK_USER: {
-      return { ...state, loading: true };
-    }
-
-    case CHECK_USER_SUCCESS: {
-      return { ...state, loading: false };
-    }
-
-    case CHECK_USER_FAILURE: {
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, checkLoading: false, error: action.payload };
     }
 
     default:
       return state;
   }
 }
+
+export const selectLoggedStatus = createSelector(
+  state => state.rootReducer,
+  rootReducer => rootReducer.logged
+);
